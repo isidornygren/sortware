@@ -1,5 +1,9 @@
 # Sortware
+<p align="center">
 ![Screenshot of the application](screenshot_1.jpg)
+<img src="screenshot_1.jpg"/>
+</p>
+
 Sortware is a software developed by Isidor Nygren.
 It is intended to be used for testing sorting algorithms and presenting visual
 feedback on sorting algorithms.
