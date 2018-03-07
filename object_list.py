@@ -31,7 +31,7 @@ class Element:
 
 
 class ObjectList:
-    def __init__(self, n):
+    def __init__(self, n, dt = 0.0001):
         """ Creates an array of size n
         Parameters
         ----------
@@ -39,7 +39,8 @@ class ObjectList:
             The size of the array to create.
         """
         self._size = n
-        self._waittime = 0.0001
+        self._waittime = dt
+        self._mute = False
         # Creates a new zero'd array and resets eventual timers
         """ Resets the array to zero """
         self._array = numpy.empty(self._size, dtype=object)
@@ -65,6 +66,9 @@ class ObjectList:
     def len(self):
         """ Returns the length of the array """
         return self._size
+    def mute(self, mute = False):
+        """ Mute the application """
+        self._mute = mute
     def settime(self, time):
         """ Sets the time to sleep between each peek in the array.
         Parameters
@@ -106,7 +110,7 @@ class ObjectList:
         self._array[a].set_swap(True)
         self._array[b].set_swap(True)
         temp = self.peek(a, True)
-        if not mute:
+        if not mute and not self._mute:
             playsine(50 + temp.value()*1500, 0.1)
         self.insert(a, self.peek(b, True))
         self.insert(b, temp)
