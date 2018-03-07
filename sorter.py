@@ -33,7 +33,8 @@ class Sorter:
         self._screen.fill((0,0,0))
         pygame.display.set_caption('Sårter: %s' % (algorithm_str))
         # Create text font
-        self._font = pygame.font.SysFont('Arial', 24)
+        # self._font = pygame.font.SysFont('Arial', 20)
+        self._font = pygame.font.Font('fonts/FiraMono-Medium.ttf', 14)
         self._algorithm_text = self._font.render('Algorithm: %s' % (algorithm_str.title()), True, (255,255,255))
         # Create sorting thread
         algorithm = importlib.import_module('algorithms.' + algorithm_str)
@@ -50,6 +51,7 @@ class Sorter:
                         # Shuffle the array
                         if not first_time:
                             self._finished_time = 0 # Reset timer
+                            # Create a new empty array
                             self._object_list = ObjectList(objects)
                             self._object_list.shuffle()
                         else:
@@ -67,6 +69,10 @@ class Sorter:
         self._screen.fill((0,0,0))
         # Draw text
         self._screen.blit(self._algorithm_text, (self._width/2 - self._algorithm_text.get_width()/2, 5))
+        peek_text = self._font.render("Peeks: " + str(self._object_list.get_peeks()), True, (255,255,255))
+        swap_text = self._font.render("Swaps: " + str(self._object_list.get_swaps()), True, (255,255,255))
+        self._screen.blit(peek_text, (5, 5))
+        self._screen.blit(swap_text, (5, 22))
         if hasattr(self, '_start_time'):
             if self._sort_thread.is_alive():
                 deltatime = (datetime.datetime.now() - self._start_time)
@@ -75,13 +81,13 @@ class Sorter:
                     self._finished_time = datetime.datetime.now()
                 deltatime = (self._finished_time - self._start_time)
             timer_text = self._font.render(str(deltatime), True, (255,255,255))
-            self._screen.blit(timer_text, (self._width/2 - timer_text.get_width()/2, 26))
+            self._screen.blit(timer_text, (self._width/2 - timer_text.get_width()/2, 22))
         # Calculate each rectangle size and position
         for (i, element) in enumerate(self._object_list._array):
             x = math.ceil(i*self._rectangle_width) + self._window_margin + self._rectangle_margin*i
             y = self._window_margin + math.ceil(self._rectangle_height - self._rectangle_height*element)
             height = self._rectangle_height*element
             width = self._rectangle_width
-            pygame.draw.rect(self._screen, (150,150,150), (x, y, width, height), 0)
+            pygame.draw.rect(self._screen, (200,200,200), (x, y, width, height), 0)
 
-Sorter(1000, 500, 500, "heapsort")
+Sorter(1000, 500, 40, "bubblesort")

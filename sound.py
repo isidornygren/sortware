@@ -36,5 +36,5 @@ def playsine(hz, duration):
         buf[s][0] = int(round(sound_max_sample*math.sin(2*math.pi*hz*t))) # Left channel
         buf[s][1] = buf[s][0] # Right channel
     sound = pygame.sndarray.make_sound(buf)
-    sound.set_volume(0.1)
+    sound.set_volume(0.05)
     sound.play(loops = 1)

@@ -18,9 +18,10 @@ class ObjectList:
         n : int
             The size of the array to create.
         """
-        self._array = numpy.empty(n, dtype=float)
         self._size = n
         self._waittime = 0.0001
+        # Creates a new zero'd array and resets eventual timers
+        self.reset()
         for i in range(0, n):
             self.insert(i, float(i + 1)/n)
     def __str__(self):
@@ -37,6 +38,11 @@ class ObjectList:
         if i > self._size or i < 0:
             raise IndexError('Index out of bounds')
         self._array[i] = object
+    def reset(self):
+        """ Resets the array to zero """
+        self._array = numpy.empty(self._size, dtype=float)
+        self._tot_peeks = 0
+        self._tot_swaps = 0
     def len(self):
         """ Returns the length of the array """
         return self._size
@@ -56,8 +62,9 @@ class ObjectList:
         i : int
             The index of the element to peek at.
         """
-        if i > self._size or i < 0:
+        if i > self.len() or i < 0:
             raise IndexError('Index out of bounds')
+        self._tot_peeks += 1
         # Sleep for a small amount of time to make up for a fast processor
         time.sleep(self._waittime)
         return self._array[i]
@@ -72,9 +79,16 @@ class ObjectList:
         """
         temp = self.peek(a)
         if not mute:
-            playsine(50 + temp*1500, 0.01)
+            playsine(50 + temp*1500, 0.1)
         self.insert(a, self.peek(b))
         self.insert(b, temp)
+        self._tot_swaps += 1
+    def get_peeks(self):
+        """ Returns the total amount of peeks on the array """
+        return self._tot_peeks
+    def get_swaps(self):
+        """ Returns the total amount of swaps on the array """
+        return self._tot_swaps
     def shuffle(self):
         """ Shuffles all the element in the array.
             Uses the modernised version of the Fisher-Yates shuffle
@@ -82,6 +96,9 @@ class ObjectList:
         for i in range(0, self.len() - 2):
             j = random.randint(i, self.len() - 1)
             self.swap(i, j, True)
+        """ Reset swaps and peeks after each shuffle """
+        self._tot_peeks = 0
+        self._tot_swaps = 0
     def tostring(self):
         """ Prints the value of all the elements in the array. """
         print(*self._array, sep='\n')
