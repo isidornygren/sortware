@@ -1,4 +1,5 @@
 # Sortware
+![Screenshot of the application](screenshot_1.jpg)
 Sortware is a software developed by Isidor Nygren.
 It is intended to be used for testing sorting algorithms and presenting visual
 feedback on sorting algorithms.
@@ -22,3 +23,6 @@ optional arguments:
   -dt DELTATIME, --deltatime DELTATIME
                         The time between each swap (default:0.001)
 ```
+Upon running the application you are presented with a window with unsorted rectangles.
+To sort them, press the left mouse button inside of the window. When the sorting is complete,
+press the left mouse button again to sort some more.

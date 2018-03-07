@@ -104,4 +104,4 @@ parser.add_argument('-s', '--sorter', default='quicksort', type=str, help='Choos
 parser.add_argument('-dt', '--deltatime', default=0.001, type=float, help='The time between each swap (default:0.001)')
 
 args = parser.parse_args()
-sorter.Sorter(1000, 500, 100, args.sorter, args.deltatime, args.mute)
+sorter.Sorter(640, 360, 100, args.sorter, args.deltatime, args.mute)
