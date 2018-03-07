@@ -96,4 +96,4 @@ class Sorter:
                 color = (200,200,200)
             pygame.draw.rect(self._screen, color, (x, y, width, height), 0)
 
-Sorter(1000, 500, 40, "bubblesort")
+Sorter(1000, 500, 40, "heapsort")
