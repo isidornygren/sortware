@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 __author__ = "Isidor Nygren"
 __copyright__ = "Copyright 2018, Isidor Nygren"
 __license__ = "MIT"
