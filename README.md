@@ -1,6 +1,5 @@
 # Sortware
 <p align="center">
-![Screenshot of the application](screenshot_1.jpg)
 <img src="screenshot_1.jpg"/>
 </p>
 
