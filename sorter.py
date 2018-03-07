@@ -85,9 +85,15 @@ class Sorter:
         # Calculate each rectangle size and position
         for (i, element) in enumerate(self._object_list._array):
             x = math.ceil(i*self._rectangle_width) + self._window_margin + self._rectangle_margin*i
-            y = self._window_margin + math.ceil(self._rectangle_height - self._rectangle_height*element)
-            height = self._rectangle_height*element
+            y = self._window_margin + math.ceil(self._rectangle_height - self._rectangle_height*element.value())
+            height = self._rectangle_height*element.value()
             width = self._rectangle_width
-            pygame.draw.rect(self._screen, (200,200,200), (x, y, width, height), 0)
+            if element.is_swapping():
+                color = (200,0,0)
+            elif element.is_peeking():
+                color = (0,200,0)
+            else:
+                color = (200,200,200)
+            pygame.draw.rect(self._screen, color, (x, y, width, height), 0)
 
 Sorter(1000, 500, 40, "bubblesort")
