@@ -7,7 +7,7 @@ __version__ = "1.0"
 __maintainer__ = "Isidor Nygren"
 __email__ = "admin@isidor.co.uk"
 
-import pygame, sys, threading, time, math, importlib, datetime, argparse, sorter
+import pygame, sys, threading, time, math, importlib, datetime, argparse
 from object_list import ObjectList
 
 class Sorter:
@@ -59,7 +59,7 @@ class Sorter:
                             first_time = False
                         # Start sorting
                         self._sort_thread = threading.Thread(target=algorithm.sort, args=(self._object_list,))
-                        # self._sort_thread.daemon = True                            # Daemonize thread
+                        # self._sort_thread.daemon = True # Daemonize thread
 
                         self._start_time = datetime.datetime.now()
                         self._sort_thread.start()
@@ -97,7 +97,6 @@ class Sorter:
                 color = (200,200,200)
             pygame.draw.rect(self._screen, color, (x, y, width, height), 0)
 
-# Sorter(1000, 500, 100, "quicksort")
 parser = argparse.ArgumentParser(description='Visualises sorting data with different algorithms')
 
 parser.add_argument('-m', '--mute', dest='mute', action='store_true', help='Mutes the application.')
@@ -105,4 +104,4 @@ parser.add_argument('-s', '--sorter', default='quicksort', type=str, help='Choos
 parser.add_argument('-dt', '--deltatime', default=0.001, type=float, help='The time between each swap (default:0.001)')
 
 args = parser.parse_args()
-sorter.Sorter(640, 360, 100, args.sorter, args.deltatime, args.mute)
+Sorter(640, 360, 100, args.sorter, args.deltatime, args.mute)
