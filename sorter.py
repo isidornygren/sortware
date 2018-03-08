@@ -12,6 +12,13 @@ from object_list import ObjectList
 from os import listdir
 from os.path import isfile, join
 
+def format_time(time):
+    seconds = math.floor(time)
+    minutes = math.floor(seconds/60)
+    time -= seconds
+    seconds = seconds % 60
+    return '%02d:%02d:%02d' % (minutes, seconds, math.floor(time*100))
+
 class Sorter:
     def __init__(self, width, height, objects, algorithm_str, deltatime = 0.0001, mute = False):
         self._width = width
@@ -61,9 +68,9 @@ class Sorter:
                             first_time = False
                         # Start sorting
                         self._sort_thread = threading.Thread(target=algorithm.sort, args=(self._object_list,))
-                        # self._sort_thread.daemon = True # Daemonize thread
+                        self._sort_thread.daemon = True # Daemonize thread
 
-                        self._start_time = datetime.datetime.now()
+                        self._start_time = time.clock()
                         self._sort_thread.start()
             self.draw()
             pygame.display.flip()
@@ -78,11 +85,12 @@ class Sorter:
         self._screen.blit(swap_text, (5, 22))
         if hasattr(self, '_start_time'):
             if self._sort_thread.is_alive():
-                deltatime = (datetime.datetime.now() - self._start_time)    #TODO segfault
+                deltatime = format_time(time.clock() - self._start_time)
+                # deltatime = (datetime.datetime.now() - self._start_time)    #TODO segfault
             else:
                 if (self._finished_time == 0):
-                    self._finished_time = datetime.datetime.now()
-                deltatime = (self._finished_time - self._start_time)
+                    self._finished_time = time.clock()
+                deltatime = format_time(self._finished_time - self._start_time)
             timer_text = self._font.render(str(deltatime), True, (255,255,255))
             self._screen.blit(timer_text, (self._width/2 - timer_text.get_width()/2, 22))
         # Calculate each rectangle size and position
