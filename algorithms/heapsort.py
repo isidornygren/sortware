@@ -8,6 +8,7 @@ __maintainer__ = "Isidor Nygren"
 __email__ = "admin@isidor.co.uk"
 
 import math
+from .basesort import victorylap
 
 def heapify(array, n, i):
     end = i
@@ -37,3 +38,4 @@ def sort(array):
     for i in range(n - 1, 0, -1):
         array.swap(0, i)
         heapify(array, i, 0)
+    victorylap(array)

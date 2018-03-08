@@ -8,6 +8,7 @@ __maintainer__ = "Isidor Nygren"
 __email__ = "admin@isidor.co.uk"
 
 import random
+from .basesort import victorylap
 
 def partition(array, start, end, pivot):
     if not (start <= pivot <= end):
@@ -50,3 +51,4 @@ def sort(array):
         array of objects to sort.
     """
     quicksort(array)
+    victorylap(array)

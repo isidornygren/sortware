@@ -7,6 +7,8 @@ __version__ = "1.0"
 __maintainer__ = "Isidor Nygren"
 __email__ = "admin@isidor.co.uk"
 
+from ,basesort import victorylap
+
 def sort(array):
     """ Bubblesort sorting function.
     Sorts an array with the bubble sorting algorithm
@@ -25,3 +27,4 @@ def sort(array):
                 swapped = True
         if swapped == False:
             break
+    victorylap(array)

@@ -77,7 +77,7 @@ class ObjectList:
             The time to wait between each peek.
         """
         self._waittime = time
-    def peek(self, i, getobject = False, sleep = True):
+    def peek(self, i, getobject = False, sleep = True, dt = 0):
         """ Peeks at a given position
         Returns the attribute value of the element at the position.
         Parameters
@@ -86,6 +86,10 @@ class ObjectList:
             The index of the element to peek at.
         getobject : boolean
             If the returned object should be the elment or just the value
+        sleep : boolean
+            If the peek should sleep for a bit whilst peeking
+        dt : float
+            The time the peek should sleep for
         """
         if i > self.len() or i < 0:
             raise IndexError('Index out of bounds')
@@ -93,7 +97,12 @@ class ObjectList:
         self._tot_peeks += 1
         # Sleep for a small amount of time to make up for a fast processor
         if sleep:
-            time.sleep(self._waittime)
+            if not dt == 0:
+                if not self._mute:
+                    playsine(50 + self._array[i].value()*1500, 0.1)
+                time.sleep(dt)
+            else:
+                time.sleep(self._waittime)
         self._array[i].set_peek(False)
         if(getobject):
             return self._array[i]
