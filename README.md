@@ -1,6 +1,6 @@
 # Sortware
 <p align="center">
-<img src="screenshot_1.jpg"/>
+<img src="sorter_preview.gif"/>
 </p>
 
 Sortware is a software developed by Isidor Nygren.
