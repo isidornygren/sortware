@@ -102,7 +102,7 @@ class ObjectList:
                     playsine(50 + self._array[i].value()*1500, 0.1)
                 time.sleep(dt)
             else:
-                time.sleep(self._waittime)
+                time.sleep(self._waittime) #TODO segfault
         self._array[i].set_peek(False)
         if(getobject):
             return self._array[i]

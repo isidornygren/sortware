@@ -9,6 +9,8 @@ __email__ = "admin@isidor.co.uk"
 
 import pygame, sys, threading, time, math, importlib, datetime, argparse
 from object_list import ObjectList
+from os import listdir
+from os.path import isfile, join
 
 class Sorter:
     def __init__(self, width, height, objects, algorithm_str, deltatime = 0.0001, mute = False):
@@ -76,7 +78,7 @@ class Sorter:
         self._screen.blit(swap_text, (5, 22))
         if hasattr(self, '_start_time'):
             if self._sort_thread.is_alive():
-                deltatime = (datetime.datetime.now() - self._start_time)
+                deltatime = (datetime.datetime.now() - self._start_time)    #TODO segfault
             else:
                 if (self._finished_time == 0):
                     self._finished_time = datetime.datetime.now()
@@ -97,11 +99,20 @@ class Sorter:
                 color = (200,200,200)
             pygame.draw.rect(self._screen, color, (x, y, width, height), 0)
 
-parser = argparse.ArgumentParser(description='Visualises sorting data with different algorithms')
+def print_algorithms():
+    algorithms = [f for f in listdir('algorithms') if isfile(join('algorithms', f)) and not f == 'basesort.py']
+    for algorithm in algorithms:
+        print("\t%s" % algorithm.split(".")[0])
 
+parser = argparse.ArgumentParser(description='Visualises sorting data with different algorithms')
 parser.add_argument('-m', '--mute', dest='mute', action='store_true', help='Mutes the application.')
 parser.add_argument('-s', '--sorter', default='quicksort', type=str, help='Choose a sorting algorithm from the algorithm folder (default:quicksort)')
 parser.add_argument('-dt', '--deltatime', default=0.001, type=float, help='The time between each swap (default:0.001)')
+parser.add_argument('-a', '--algorithm', dest='algorithm', action='store_true', help='Prints the available algorithms in a list')
 
 args = parser.parse_args()
-Sorter(640, 360, 100, args.sorter, args.deltatime, args.mute)
+
+if args.algorithm:
+    print_algorithms()
+else:
+    Sorter(640, 360, 100, args.sorter, args.deltatime, args.mute)

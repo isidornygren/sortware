@@ -13,7 +13,7 @@ feedback on sorting algorithms.
 ## Run
 ```
 $ python sorter.py -h
-usage: sorter.py [-h] [-m] [-s SORTER] [-dt DELTATIME]
+usage: sorter.py [-h] [-m] [-s SORTER] [-dt DELTATIME] [-a]
 
 Visualises sorting data with different algorithms
 
@@ -25,6 +25,7 @@ optional arguments:
                         (default:quicksort)
   -dt DELTATIME, --deltatime DELTATIME
                         The time between each swap (default:0.001)
+  -a, --algorithm       Prints the available algorithms in a list
 ```
 Upon running the application you are presented with a window with unsorted rectangles.
 To sort them, press the left mouse button inside of the window. When the sorting is complete,
