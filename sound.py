@@ -31,9 +31,19 @@ def playsine(hz, duration):
     n_samples = int(round(duration*sound_sample_rate))
     buf = numpy.zeros((n_samples, 2), dtype = numpy.int16)
 
+
+
     for s in range(n_samples):
         t = float(s)/sound_sample_rate
-        buf[s][0] = int(round(sound_max_sample*math.sin(2*math.pi*hz*t))) # Left channel
+        # Add amplitude smoothing at start and finish
+        if s < n_samples/5:
+            amp = (s)*(5/n_samples)
+            buf[s][0] = int(round(sound_max_sample*math.sin(2*math.pi*hz*t)*amp))
+        elif s > (4*n_samples)/5:
+            amp = abs(s-n_samples)*(5/n_samples)
+            buf[s][0] = int(round(sound_max_sample*math.sin(2*math.pi*hz*t)*amp)) # Left channel
+        else:
+            buf[s][0] = int(round(sound_max_sample*math.sin(2*math.pi*hz*t))) # Left channel
         buf[s][1] = buf[s][0] # Right channel
     sound = pygame.sndarray.make_sound(buf)
     sound.set_volume(0.05)
