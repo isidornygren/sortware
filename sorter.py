@@ -37,6 +37,9 @@ class Sorter:
         # Pygame for initialising graphical engine
         pygame.mixer.pre_init(44100, -16, 2, 1024)
         pygame.init()
+        # Initialise icon
+        icon = pygame.image.load('icon.png')
+        pygame.display.set_icon(icon)
         self._screen = pygame.display.set_mode((width, height))
         self._screen.fill((0,0,0))
         pygame.display.set_caption('Sortware: %s' % (algorithm_str))
