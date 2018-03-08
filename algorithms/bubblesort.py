@@ -7,7 +7,7 @@ __version__ = "1.0"
 __maintainer__ = "Isidor Nygren"
 __email__ = "admin@isidor.co.uk"
 
-from ,basesort import victorylap
+from .basesort import victorylap
 
 def sort(array):
     """ Bubblesort sorting function.
