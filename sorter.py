@@ -51,6 +51,7 @@ class Sorter:
                         if not first_time:
                             self._finished_time = 0 # Reset timer
                             # Create a new empty array
+                            del self._object_list # Remove old list
                             self._object_list = ObjectList(objects, deltatime)
                             self._object_list.shuffle()
                             self._object_list.mute(mute)
@@ -58,7 +59,7 @@ class Sorter:
                             first_time = False
                         # Start sorting
                         self._sort_thread = threading.Thread(target=algorithm.sort, args=(self._object_list,))
-                        self._sort_thread.daemon = True                            # Daemonize thread
+                        # self._sort_thread.daemon = True                            # Daemonize thread
 
                         self._start_time = datetime.datetime.now()
                         self._sort_thread.start()

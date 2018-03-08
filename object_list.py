@@ -77,7 +77,7 @@ class ObjectList:
             The time to wait between each peek.
         """
         self._waittime = time
-    def peek(self, i, getobject = False):
+    def peek(self, i, getobject = False, sleep = True):
         """ Peeks at a given position
         Returns the attribute value of the element at the position.
         Parameters
@@ -92,7 +92,8 @@ class ObjectList:
         self._array[i].set_peek(True)
         self._tot_peeks += 1
         # Sleep for a small amount of time to make up for a fast processor
-        time.sleep(self._waittime)
+        if sleep:
+            time.sleep(self._waittime)
         self._array[i].set_peek(False)
         if(getobject):
             return self._array[i]
