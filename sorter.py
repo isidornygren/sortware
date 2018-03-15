@@ -56,25 +56,25 @@ class Sorter:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
-                elif event.type == pygame.MOUSEBUTTONUP:
+                #elif event.type == pygame.MOUSEBUTTONUP:
                     # If not already running
-                    if not (hasattr(self, '_sort_thread') and self._sort_thread.isAlive()):
-                        # Shuffle the array
-                        if not first_time:
-                            self._finished_time = 0 # Reset timer
-                            # Create a new empty array
-                            del self._object_list # Remove old list
-                            self._object_list = ObjectList(objects, deltatime)
-                            self._object_list.shuffle()
-                            self._object_list.mute(mute)
-                        else:
-                            first_time = False
-                        # Start sorting
-                        self._sort_thread = threading.Thread(target=algorithm.sort, args=(self._object_list,))
-                        self._sort_thread.daemon = True # Daemonize thread
+                if not (hasattr(self, '_sort_thread') and self._sort_thread.isAlive()):
+                    # Shuffle the array
+                    if not first_time:
+                        self._finished_time = 0 # Reset timer
+                        # Create a new empty array
+                        del self._object_list # Remove old list
+                        self._object_list = ObjectList(objects, deltatime)
+                        self._object_list.shuffle()
+                        self._object_list.mute(mute)
+                    else:
+                        first_time = False
+                    # Start sorting
+                    self._sort_thread = threading.Thread(target=algorithm.sort, args=(self._object_list,))
+                    self._sort_thread.daemon = True # Daemonize thread
 
-                        self._start_time = time.clock()
-                        self._sort_thread.start()
+                    self._start_time = time.clock()
+                    self._sort_thread.start()
             self.draw()
             pygame.display.flip()
 
@@ -126,4 +126,4 @@ args = parser.parse_args()
 if args.algorithm:
     print_algorithms()
 else:
-    Sorter(640, 360, 100, args.sorter, args.deltatime, args.mute)
+    Sorter(1000, 500, 100, args.sorter, args.deltatime, args.mute)
